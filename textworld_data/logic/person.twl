@@ -1,0 +1,70 @@
+# text-Like
+type pr : t {
+    predicates {
+        not_asked(pr);
+        asked(pr);
+        given(pr);
+        not_given(pr);
+    }
+
+    rules {
+        attack/pr   :: $at(P, r) & $at(pr, r) & $not_given(pr) & not_asked(pr) -> asked(pr);
+        ask/pr :: $at(P, r) & $at(pr,r) & $given(pr) & not_asked(pr) -> asked(pr);
+        give/pr :: $at(P, r) & $at(pr,r) & $not_asked(pr) & in(o, I) & not_given(pr) -> given(pr);
+    }
+    
+    constraints {
+        pr1 :: asked(pr) & not_asked(pr) -> fail();
+        pr2 :: given(pr) & not_given(pr) -> fail();
+
+    }
+
+    inform7 {
+        type {
+            kind :: "person-like";
+            definition :: "person-like can be asked. person-like can be given. person-like is fixed in place.";
+        }
+
+        predicates {
+            asked(pr) :: "The {pr} is asked";
+            not_asked(pr) :: "The {pr} is not asked";
+            given(pr) :: "";
+            not_given(pr) :: "";
+        }
+
+        commands {            
+            attack/pr :: "beat the {pr}" :: "_beating the {pr}";
+            ask/pr :: "ask the {pr} about the bank roberry" :: "_asking the {pr}";
+            give/pr :: "give the {pr} some money" :: "_giving the {pr}";
+        }
+        
+        code :: """
+            Understand the command "ask" as something new. 
+            Understand "ask [something] about the bank roberry" as _asking. 
+            _asking is an action applying to a thing. 
+        
+            Carry out _asking: 
+                if a person-like (called tx) is not asked: 
+                    Say "The person is being asked about the bank robbery.";
+                    Now the tx is asked; 
+            After _asking: 
+                say "[the noun] has given the information. he said go north.";
+
+            Understand the command "beat" as something new. 
+            Understand "beat [something]" as _beating. 
+            _beating is an action applying to a thing. 
+        
+            Carry out _beating the person-like(called tx): 
+                Say "The person is being attacked and given the information. He said go north";
+                Now the tx is asked;
+
+            Understand the command "give" as something new. 
+            Understand "give [something] some money" as _giving. 
+            _giving is an action applying to a thing. 
+        
+            Carry out _giving the person-like(called tx): 
+                Say "The informant is being given money.";
+                Now the tx is given;
+        """;
+    }
+}

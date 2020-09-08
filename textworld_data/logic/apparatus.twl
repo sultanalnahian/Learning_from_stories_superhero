@@ -1,0 +1,51 @@
+# apparatus
+type ap : o {
+    predicates {
+        equiped(ap);
+        not_equiped(ap);
+    }
+
+    rules {
+        wear/ap   :: $in(ap, I) & not_equiped(ap) -> equiped(ap);
+        get_rid/ap :: $in(ap, I) & equiped(ap) -> not_equiped(ap);
+    }
+    
+    constraints {
+        ap1 :: equiped(ap) & not_equiped(ap) -> fail();
+    }
+
+    inform7 {
+        type {
+            kind :: "apparatus-like";
+            definition :: "apparatus-like is portable. apparatus-like can be equiped or not_equiped.";
+        }
+
+        predicates {
+            equiped(ap) :: "The {ap} is equiped";
+            not_equiped(ap) :: "The {ap} is not_equiped";
+        }
+
+        commands {            
+            wear/ap :: "wear the {ap}" :: "_wearing the {ap}";
+            get_rid/ap :: "get rid of the {ap}" :: "_gettingrid the {ap}";
+        }
+        
+        code :: """
+            Understand the command "wear" as something new. 
+            Understand "wear the [something]" as _wearing. 
+            _wearing is an action applying to a thing. 
+        
+            Carry out _wearing the apparatus-like (called apx): 
+                Now the apx is equiped.
+            After _wearing: 
+                say "You have buckled your game gears";
+
+            Understand the command "get" as something new. 
+            Understand "get rid of the [something]" as _gettingrid. 
+            _gettingrid is an action applying to a thing. 
+        
+            Carry out _gettingrid the apparatus-like (called apx): 
+                Now the apx is not_equiped.
+        """;
+    }
+}

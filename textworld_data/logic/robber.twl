@@ -1,0 +1,94 @@
+type rbr : t {
+    predicates {
+        not_stopped(rbr);
+        stopped(rbr);
+        allowed(rbr);
+        not_allowed(rbr);
+        called(rbr);
+        not_called(rbr);
+    }
+
+    rules {
+        shoot/rbr   :: $at(P, r) & $at(rbr, r) & not_stopped(rbr) -> stopped(rbr);
+        capture/rbr :: $at(P, r) & $at(rbr, r) & $called(rbr) & not_stopped(rbr) -> stopped(rbr);
+        convince/rbr :: $at(P, r) & $at(rbr, r) & $called(rbr) & not_stopped(rbr) -> stopped(rbr);
+        allow/rbr :: $at(P, r) & $at(rbr, r) & not_allowed(rbr) -> allowed(rbr);
+        call/rbr   :: $at(P, r) & $at(rbr, r) & not_called(rbr) -> called(rbr);
+    }
+    
+    constraints {
+        rbr1 :: stopped(rbr) & not_stopped(rbr) -> fail();
+        rbr2 :: allowed(rbr) & not_allowed(rbr) -> fail();
+        rbr3 :: called(rbr) & not_called(rbr) -> fail();
+    }
+
+    inform7 {
+        type {
+            kind :: "robber-like";
+            definition :: "robber-like can be open or closed. robber-like are usually open. robber-like can be allowed. robber-like can be called or not_called. robber-like is fixed in place.";
+        }
+
+        predicates {
+            stopped(rbr) :: "The {rbr} is closed";
+            not_stopped(rbr) :: "The {rbr} is open";
+            allowed(rbr) :: "The {rbr} is allowed";
+            not_allowed(rbr) :: "The {rbr} is not allowed";
+            called(rbr) :: "";
+            not_called(rbr) :: "";
+        }
+
+        commands {            
+            shoot/rbr :: "shoot the {rbr}" :: "_shooting the {rbr}";
+            capture/rbr :: "capture the {rbr}" :: "_capturing the {rbr}";
+            convince/rbr :: "convince the {rbr}" :: "_convincing the {rbr}";
+            allow/rbr :: "allow the {rbr} to escape" :: "_allowing the {rbr}";
+            call/rbr :: "call the police" :: "calling the police";
+        }
+        
+        code :: """
+            Understand the command "shoot" as something new. 
+            Understand "shoot [something]" as _shooting. 
+            _shooting is an action applying to a thing. 
+        
+            Carry out _shooting the robber-like (called rx): 
+                Say "The [noun] is being shot. You are successful to stop the robbery.";
+                Now the rx is closed.
+            After _shooting: 
+                say "You killed [the noun]";
+
+            Understand the command "capture" as something new. 
+            Understand "capture [something]" as _capturing. 
+            _capturing is an action applying to a thing. 
+        
+            Carry out _capturing the robber-like (called rx): 
+                Say "The [noun] is being captured. You are successful to stop the robbery.";
+                Now the rx is closed.
+
+            Understand the command "convince" as something new. 
+            Understand "convince [something]" as _convincing. 
+            _convincing is an action applying to a thing. 
+        
+            Carry out _convincing the robber-like (called rx): 
+                Say "The [noun] is ready to surrender. You are successful to stop the robbery.";
+                Now the rx is closed.
+
+            Understand the command "allow" as something new. 
+            Understand "allow [something] to escape" as _allowing. 
+            _allowing is an action applying to a thing. 
+        
+            Carry out _allowing the robber-like (called rx): 
+                Say "The [noun] has escaped. You are failed to stop the robbery.";
+                Now the rx is allowed. 
+
+            Understand the command "call" as something new. 
+            Understand "call the police" as calling the police. 
+            calling the police is an action applying to nothing. 
+
+            Carry out calling the police: 
+                if a robber-like (called rx) is not_called: 
+                    Say "Police is being called.";
+                    Now the rx is called.
+
+        """;
+    }
+}

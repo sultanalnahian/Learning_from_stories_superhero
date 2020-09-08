@@ -1,0 +1,44 @@
+# police
+type pl : t{
+    predicates {
+        called(pl);
+        not_called(pl);
+    }
+
+    rules {
+        call/pl   :: $at(P, r) & $at(rbr, r) & not_called(pl) -> called(pl);
+    }
+    
+    constraints {
+        pl1 :: called(pl) & not_called(pl) -> fail();
+    }
+
+    inform7 {
+        type {
+            kind :: "police-like";
+            definition :: "police-like can be called or not_called. police-like are usually not_called. police-like is fixed in place.";
+        }
+
+
+        predicates {
+            called(pl) :: "";
+            not_called(pl) :: "";
+        }
+
+        commands {            
+            call/pl :: "call the {pl}" :: "calling the {pl}";
+        }
+
+        code :: """
+            Understand the command "call" as something new. 
+            Understand "call [something]" as calling. 
+            calling is an action applying to a thing. 
+        
+            Carry out calling the police-like (called rx): 
+                Say "The [the noun] is being called.";
+                Now the rx is called.
+        
+        """;
+
+    }
+}

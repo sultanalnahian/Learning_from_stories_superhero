@@ -1,0 +1,25 @@
+type tm : t {
+    rules {
+        help/tm :: $at(P, r) & at(tm, r) -> at(tm, r);
+        disturb/tm :: $at(P, r) & at(tm, r) -> at(tm, r);
+        request/tm :: $at(P, r) & $at(tm, r) & $in(ap, I) & not_equiped(ap) -> equiped(ap);
+    }
+
+    inform7 {
+        type {
+            kind :: "friend-like";
+            definition :: "friend-like is fixed in place.";
+        }
+
+        commands {            
+            help/tm :: "help your team mates" :: "helping team mates";
+            disturb/tm :: "disturb your team mates" :: "disturbing team mates";
+            request/tm :: "request someone to help you wearing the game gears" :: "_requesting some one";
+        }
+        
+        code :: """
+            Understand the command "request" as something new.
+            _requesting is an action applying to a thing. 
+        """;
+    }
+}
