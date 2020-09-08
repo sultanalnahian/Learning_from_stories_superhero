@@ -1,0 +1,19 @@
+State,Action,Phrase 1,Phrase 2,Phrase 3
+Road,go east,The man went to the east,He went east,The person decided to go east
+Alley,beat the informant,The informant was beaten by the man,He beat the informant mercilessly,The person beat the informant
+Alley,give the informant some money,The informant took the money and did something else,He gave some money for the info he wanted,The person gave the money to the informant
+Alley,ask the informant about bank robbery,The man asked for some details about the impending job,He asked when the bank robbery was happening,The person asks about the bank robbery
+Alley,drop money,You dropped some coins and he notices,She dropped some coins,The person dropped the money they had
+Alley,take money,You took the money and he notices,She took some money from the table,The person grabbed the money on the table
+Alley,examine,You examine something in the alley,They examined the alley for anything suspicious,The person looked around the alley
+Alley,go east,He went to the east,They decided east was where to go,The person went east
+Alley,go north,He went to the north,They wanted to go north,The person went north
+Alley,go south,he went to the south,They hoped something was to the south,The person went south
+Alley,go west,He went to the west,The west was their destination,The person went west
+Alley,look,He looked around before deciding what to do,Mike looked a lot like this informant,The person looked at the informant 
+Alley,wait,He waited for a while in the weird alley,Mary waited but wanted to leave the alley as soon as possible,The person waited while the informant spoke
+North Bank,shoot the robbers,He opened fire on the robbers,Tim took out his gun and shot the robbers,The person shot the robbers
+North Bank,allow the robbers to escape,The robbers went away after he watched them,Nick couldnt catch the robber in time,The person allowed the robbers to get away
+North Bank,capture the robbers,He decided to try to capture the robbers,Justin tripped the robber before he could leave,The person captured the robbers with a rope
+North Bank,convince the robbers to surrender,He did his best to negotiate with the men,Negotiating was something Bill wanted to try,The person convinced the robbers to give up
+North Bank,call the police,He took out his phone and dialed 911,Will silently called the police,The person called the cops
